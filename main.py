@@ -11,21 +11,30 @@ os.system('cls')
 
 running = True
 wrong = False
+answered = False
 
 def input_control(i):
     global running
     global wrong
+    global answered
     if i == "q" or i == "quit":
         running = False
         wrong = False
     elif i == "e" or i == "exit":
         wrong = False
+        answered = False
+        os.system('cls')
+    elif i == "a" and not answered or i == "answer" and not answered:
+        os.system('cls')
+        answered = True
+        print("the answer is: " + str(problem))
+        inpt()
     else:
         problem_control(i)
 
 def problem_control(i):
     global wrong
-    if i == problem:
+    if i == float(problem):
         os.system('cls')
     else:
         wrong = True
@@ -37,16 +46,15 @@ def wrong_ans():
     wrong = True
     print("Incorrect answer or invalid entry")
     print(problem_print[0], problem_print[1], problem_print[2], problem_print[3])
-    i = inpt()
-    input_control(i)
+    inpt()
 
 def inpt():
     get = input()
     try:
-        i = int(get)
+        i = float(get)
     except ValueError:
         i = str(get)
-    return i
+    input_control(i)
 
 while running:
     count = 0
@@ -91,5 +99,4 @@ while running:
 
 
     print(problem_print[0], problem_print[1], problem_print[2], problem_print[3])
-    i = inpt()
-    input_control(i)
+    inpt()
